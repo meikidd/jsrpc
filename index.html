@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Easy Comet</title>
+</head>
+<body>
+
+	<script src="socket.io/socket.io.js"></script>
+	<script src="easy-comet/easy-comet.js"></script>
+	<script>
+		// (function(){
+			var socket = easyComet.connect('http://10.18.214.107');
+
+			socket.register('JSService.newComing', [ 'String' ],  function( idListString ){
+				console.log('Be invoked -----------------');
+				alert( idListString );
+			});
+
+			socket.invoke("JavaService.join", [ window.location.hash.slice(1) ], function( result ){
+				console.log( result );
+			});
+
+			socket.getService('JavaService', function( JavaService ){
+				JavaService.join( window.location.hash.slice(1) );
+			});
+
+		// })();
+	</script>
+</body>
+</html>
